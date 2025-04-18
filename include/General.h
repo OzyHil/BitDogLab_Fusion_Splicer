@@ -5,13 +5,11 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
+#include "hardware/adc.h"
+#include "hardware/gpio.h"
 
-#define BUTTON_A 5   
-#define BUTTON_B 6
-#define BUTTON_J 22
-
-#define GREEN_LED 11 
-#define BLUE_LED 12  
-#define RED_LED 13  
+void configure_gpio(uint gpio, bool is_input, bool use_pull_up);
+void init_pwm(uint gpio);
+void init_adc(uint gpio);
 
 #endif

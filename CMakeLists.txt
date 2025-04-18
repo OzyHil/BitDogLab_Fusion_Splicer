@@ -38,9 +38,12 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Automatically gather all source files from src/
 file(GLOB_RECURSE SRC_FILES ${CMAKE_SOURCE_DIR}/src/*.c)
 
-
 # Add executable. Default name is the project name, version 0.1
-add_executable(${PROJECT_NAME} ${PROJECT_NAME}.c )
+add_executable(
+    ${PROJECT_NAME} 
+    ${PROJECT_NAME}.c 
+    ${SRC_FILES}
+    )
 
 pico_set_program_name(${PROJECT_NAME} "BitDogLab_Fusion_Splicer")
 pico_set_program_version(${PROJECT_NAME} "0.1")
@@ -54,7 +57,9 @@ pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/src/pio_matri
 # Add the standard library to the build
 target_link_libraries(${PROJECT_NAME}
         pico_stdlib
-        hardware_pwm)
+        hardware_pwm
+        hardware_adc
+        )
 
 # Add the standard include files to the build
 target_include_directories(${PROJECT_NAME} PRIVATE
