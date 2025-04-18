@@ -33,30 +33,38 @@ project(BitDogLab_Fusion_Splicer C CXX ASM)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Automatically gather all source files from src/
+file(GLOB_RECURSE SRC_FILES ${CMAKE_SOURCE_DIR}/src/*.c)
+
+
 # Add executable. Default name is the project name, version 0.1
+add_executable(${PROJECT_NAME} ${PROJECT_NAME}.c )
 
-add_executable(BitDogLab_Fusion_Splicer BitDogLab_Fusion_Splicer.c )
-
-pico_set_program_name(BitDogLab_Fusion_Splicer "BitDogLab_Fusion_Splicer")
-pico_set_program_version(BitDogLab_Fusion_Splicer "0.1")
+pico_set_program_name(${PROJECT_NAME} "BitDogLab_Fusion_Splicer")
+pico_set_program_version(${PROJECT_NAME} "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(BitDogLab_Fusion_Splicer 1)
-pico_enable_stdio_usb(BitDogLab_Fusion_Splicer 1)
+pico_enable_stdio_uart(${PROJECT_NAME} 1)
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
+
+pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/src/pio_matrix.pio)
 
 # Add the standard library to the build
-target_link_libraries(BitDogLab_Fusion_Splicer
-        pico_stdlib)
+target_link_libraries(${PROJECT_NAME}
+        pico_stdlib
+        hardware_pwm)
 
 # Add the standard include files to the build
-target_include_directories(BitDogLab_Fusion_Splicer PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(BitDogLab_Fusion_Splicer 
+target_link_libraries(${PROJECT_NAME}
         
         )
 
-pico_add_extra_outputs(BitDogLab_Fusion_Splicer)
+pico_add_extra_outputs(${PROJECT_NAME})
 

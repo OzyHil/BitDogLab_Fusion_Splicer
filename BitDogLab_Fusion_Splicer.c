@@ -1,25 +1,36 @@
-#include <stdio.h>
-#include "pico/stdlib.h"
-
-#define BUTTON_A 5
-#define BUTTON_B 6
-#define BUTTON_J 22
+#include "General.h"
 
 uint32_t last_time = 0;
 
 void button_irq_callback(uint gpio, uint32_t events);
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up);
+
 void configure_buttons();
+void configure_leds();
+
+void init_pwm(uint gpio);
+void set_led_brightness(uint gpio, uint8_t level);
 
 int main()
 {
     stdio_init_all();
 
     configure_buttons();
+    configure_leds();
 
     while (true)
     {
-        sleep_ms(10);
+        set_led_brightness(GREEN_LED, 12);
+        set_led_brightness(RED_LED, 35);
+        sleep_ms(1000);
+
+        set_led_brightness(GREEN_LED, 35);
+        set_led_brightness(RED_LED, 35);
+        sleep_ms(1000);
+
+        set_led_brightness(GREEN_LED, 35);
+        set_led_brightness(RED_LED, 0);
+        sleep_ms(1000);
     }
 }
 
@@ -66,4 +77,29 @@ void configure_buttons()
         configure_gpio(buttons[i], true, true);
         gpio_set_irq_enabled_with_callback(buttons[i], GPIO_IRQ_EDGE_FALL, true, button_irq_callback);
     }
+}
+
+void configure_leds()
+{
+    const uint leds[] = {GREEN_LED, BLUE_LED, RED_LED};
+
+    for (int i = 0; i < 3; i++)
+    {
+        init_pwm(leds[i]);
+    }
+}
+
+void init_pwm(uint gpio)
+{
+    gpio_set_function(gpio, GPIO_FUNC_PWM);
+
+    uint slice_num = pwm_gpio_to_slice_num(gpio);
+    pwm_set_wrap(slice_num, 255);
+    pwm_set_enabled(slice_num, true);
+}
+
+void set_led_brightness(uint gpio, uint8_t level)
+{
+    uint slice_num = pwm_gpio_to_slice_num(gpio);
+    pwm_set_chan_level(slice_num, pwm_gpio_to_channel(gpio), level);
 }
