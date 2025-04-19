@@ -1,4 +1,17 @@
 #include "General.h"
+#include "Buttons.h"
+#include "Leds.h"
+#include "Joystick.h"
+
+void init_system_config()
+{
+    stdio_init_all();
+    adc_init();
+    configure_buttons();
+    configure_leds();
+    configure_joystick();
+    set_sys_clock_khz(128000, false);
+}
 
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up)
 {

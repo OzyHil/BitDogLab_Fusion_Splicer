@@ -16,6 +16,10 @@ typedef struct {
 extern const led_color GREEN;
 extern const led_color YELLOW;
 extern const led_color ORANGE;
+extern const led_color CHARTREUSE;
+extern const led_color CYAN;
+extern const led_color BURGUNDY;
+extern const led_color DARK;
 
 void configure_leds();
 void set_led_brightness(uint gpio, uint8_t level);
