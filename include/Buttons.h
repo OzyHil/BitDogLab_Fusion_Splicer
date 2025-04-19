@@ -9,6 +9,8 @@
 
 #define debounce_delay 300000
 
+extern volatile int8_t selected_fiber;
+
 void button_irq_callback(uint gpio, uint32_t events);
 void configure_buttons();
 

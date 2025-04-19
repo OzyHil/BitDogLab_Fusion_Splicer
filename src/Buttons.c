@@ -3,7 +3,8 @@
 uint32_t last_time_irq_A = 0;
 uint32_t last_time_irq_B = 0;
 uint32_t last_time_irq_J = 0;
-volatile uint16_t d_frame = 0;
+
+volatile int8_t selected_fiber = 0;
 
 void button_irq_callback(uint gpio, uint32_t events)
 {
@@ -12,22 +13,23 @@ void button_irq_callback(uint gpio, uint32_t events)
     if (gpio == BUTTON_A)
     {
         if ((current_time - last_time_irq_A) < debounce_delay)
+            return;
         last_time_irq_A = current_time;
-        d_frame += 1;
+        selected_fiber = (selected_fiber == 1) ? 0 : 1;
     }
     else if (gpio == BUTTON_B)
     {
         if ((current_time - last_time_irq_B) < debounce_delay)
             return;
         last_time_irq_B = current_time;
-        d_frame -= 1;
+        selected_fiber = (selected_fiber == 2) ? 0 : 2;
     }
     else if (gpio == BUTTON_J)
     {
         if ((current_time - last_time_irq_J) < debounce_delay)
             return;
         last_time_irq_J = current_time;
-        d_frame = 0;
+        selected_fiber = 0;
     }
 }
 

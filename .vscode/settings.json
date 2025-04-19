@@ -42,6 +42,8 @@
         "pio_matrix.pio.h": "c",
         "led_matrix.h": "c",
         "pio.h": "c",
-        "buttons.h": "c"
+        "buttons.h": "c",
+        "variant": "c",
+        "drawings.h": "c"
     }
 }
