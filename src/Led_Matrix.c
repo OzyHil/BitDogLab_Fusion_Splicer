@@ -25,7 +25,7 @@ uint32_t rgb_matrix(led_color color)
     return (color.green << 24) | (color.red << 16) | (color.blue << 8);
 }
 
-void loop_led_colors(refs pio, led_color color)
+void loop_led_colors(refs pio, led_color_scheme colors)
 {
     int d_snake[NUM_PIXELS];
 
@@ -36,16 +36,16 @@ void loop_led_colors(refs pio, led_color color)
         switch (d_snake[i])
         {
         case 3:
-            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(color));
+            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(colors.alignment));
             break;
         case 1:
-            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(CYAN));
+            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(colors.fiber_1));
             break;
         case 2:
-            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(BURGUNDY));
+            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(colors.fiber_2));
             break;
         default:
-            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(DARK));
+            pio_sm_put_blocking(pio.ref, pio.state_machine, rgb_matrix(colors.background));
         }
     }
 }

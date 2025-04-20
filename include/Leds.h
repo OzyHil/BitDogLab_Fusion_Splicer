@@ -14,6 +14,13 @@ typedef struct {
 } led_color;
 
 typedef struct {
+    led_color fiber_1;
+    led_color fiber_2;
+    led_color alignment;
+    led_color background;
+} led_color_scheme;
+
+typedef struct {
     int pos_1;
     int pos_2;
 } led_positions;

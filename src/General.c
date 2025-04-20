@@ -2,16 +2,19 @@
 #include "Buttons.h"
 #include "Leds.h"
 #include "Joystick.h"
+#include "Display.h"
 
 void init_system_config()
 {
     stdio_init_all();
     adc_init();
+    set_sys_clock_khz(128000, false);
+    srand(time_us_32());
+
     configure_buttons();
     configure_leds();
     configure_joystick();
-    set_sys_clock_khz(128000, false);
-    srand(time_us_32());
+    configure_i2c_display();
 }
 
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up)

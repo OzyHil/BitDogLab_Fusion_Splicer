@@ -10,6 +10,8 @@
 #include "hardware/pio.h"
 #include "pio_matrix.pio.h"
 #include "hardware/clocks.h"
+#include "hardware/i2c.h"
+#include "math.h"
 
 void init_system_config();
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up);

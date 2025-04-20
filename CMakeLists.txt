@@ -60,6 +60,7 @@ target_link_libraries(${PROJECT_NAME}
         hardware_pwm
         hardware_adc
         hardware_pio
+        hardware_i2c
         )
 
 # Add the standard include files to the build

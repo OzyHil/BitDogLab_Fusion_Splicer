@@ -45,6 +45,10 @@
         "buttons.h": "c",
         "variant": "c",
         "drawings.h": "c",
-        "cstdint": "c"
+        "cstdint": "c",
+        "joystick.h": "c",
+        "general.h": "c",
+        "i2c.h": "c",
+        "display.h": "c"
     }
 }
