@@ -44,6 +44,7 @@
         "pio.h": "c",
         "buttons.h": "c",
         "variant": "c",
-        "drawings.h": "c"
+        "drawings.h": "c",
+        "cstdint": "c"
     }
 }

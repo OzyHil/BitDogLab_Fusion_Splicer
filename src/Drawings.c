@@ -44,8 +44,10 @@ int matrix[NUM_PIXELS] = {
 
 // y = (3,4; 8,9; 14,15, 18,19; 23,24)
 
-void update_fiber_1(int *matrix, int vrx, int vry)
+led_positions update_fiber_1(int *matrix, int vrx, int vry)
 {
+    led_positions positions;
+
     for (int i = 0; i < NUM_PIXELS; i++)
     {
         if (matrix[i] == 1)
@@ -73,17 +75,30 @@ void update_fiber_1(int *matrix, int vrx, int vry)
         {
             matrix[base] = 1;
             matrix[base + 1] = 1;
+
+            positions.pos_1 = base;
+            positions.pos_2 = base + 1;
         }
 
         else if (vrx > 2700)
         {
             matrix[base] = 1;
+            positions.pos_1 = base;
+            positions.pos_2 = -1;  
+        }
+        else
+        {
+            positions.pos_1 = -1;
+            positions.pos_2 = -1;
         }
     }
+    return positions;
 }
 
-void update_fiber_2(int *matrix, int vrx, int vry)
+led_positions update_fiber_2(int *matrix, int vrx, int vry)
 {
+    led_positions positions;
+
     for (int i = 0; i < NUM_PIXELS; i++)
     {
         if (matrix[i] == 2)
@@ -111,11 +126,22 @@ void update_fiber_2(int *matrix, int vrx, int vry)
         {
             matrix[base + 3] = 2;
             matrix[base + 4] = 2;
+
+            positions.pos_1 = base + 3;
+            positions.pos_2 = base + 4;
         }
 
-        if (vrx < 1700)
+        else if (vrx < 1700)
         {
             matrix[base + 4] = 2;
+            positions.pos_1 = base + 4;
+            positions.pos_2 = -1;  
+        }
+        else
+        {
+            positions.pos_1 = -1;
+            positions.pos_2 = -1;
         }
     }
+    return positions;
 }

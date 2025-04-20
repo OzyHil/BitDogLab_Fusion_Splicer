@@ -10,36 +10,30 @@ int main()
 
     refs pio = init_pio();
     led_color color = CHARTREUSE;
-    loop_colors_one_by_one(pio, color);
 
-    srand(time_us_32());
-    for (int i = 0; i < NUM_PIXELS; i++)
-    {
-        if (matrix[i] == 3)
-            matrix[i] = 0;
-    }
+    uint8_t chosen_pos = choose_random_position(matrix);
 
-    int positions[] = {2, 7, 12, 17, 22};
-    int index = rand() % 5;
-    int chosen_pos = positions[index];
+    loop_led_colors(pio, color);
 
-    matrix[chosen_pos] = 3;
+    led_positions positions_fiber_1;
+    led_positions positions_fiber_2;
 
     while (true)
     {
-        // X = (16; 4082)
-        // Y = (16; 4082)
-
         joystick_position pos = read_joystick();
 
         if (selected_fiber == 1)
-            update_fiber_1(matrix, pos.x, pos.y);
-
-        if (selected_fiber == 2)
-            update_fiber_2(matrix, pos.x, pos.y);
-
-        loop_colors_one_by_one(pio, color);
-
-        sleep_ms(50);
+        {
+            positions_fiber_1 = update_fiber_1(matrix, pos.x, pos.y);
+            check_and_light_led(positions_fiber_1, chosen_pos, 1);
+            loop_led_colors(pio, color);
+        }
+        else if (selected_fiber == 2)
+        {
+            positions_fiber_2 = update_fiber_2(matrix, pos.x, pos.y);
+            check_and_light_led(positions_fiber_2, chosen_pos, 2);
+            loop_led_colors(pio, color);
+        }
+        sleep_ms(10);
     }
 }

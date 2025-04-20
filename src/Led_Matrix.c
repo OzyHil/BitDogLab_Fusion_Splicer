@@ -25,7 +25,7 @@ uint32_t rgb_matrix(led_color color)
     return (color.green << 24) | (color.red << 16) | (color.blue << 8);
 }
 
-void loop_colors_one_by_one(refs pio, led_color color)
+void loop_led_colors(refs pio, led_color color)
 {
     int d_snake[NUM_PIXELS];
 
@@ -49,6 +49,7 @@ void loop_colors_one_by_one(refs pio, led_color color)
         }
     }
 }
+
 void convert_to_snake_rows(int *input, int *output)
 {
     int index = 0;
@@ -69,4 +70,21 @@ void convert_to_snake_rows(int *input, int *output)
             }
         }
     }
+}
+
+uint8_t choose_random_position()
+{
+    for (int i = 0; i < NUM_PIXELS; i++)
+    {         
+        matrix[i] = 0;
+    }
+
+    int positions[] = {2, 7, 12, 17, 22};
+    
+    int index = rand() % 5;
+    int chosen_pos = positions[index];
+
+    matrix[chosen_pos] = 3;
+
+    return chosen_pos;
 }

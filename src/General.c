@@ -11,6 +11,7 @@ void init_system_config()
     configure_leds();
     configure_joystick();
     set_sys_clock_khz(128000, false);
+    srand(time_us_32());
 }
 
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up)
@@ -27,9 +28,8 @@ void configure_gpio(uint gpio, bool is_input, bool use_pull_up)
 void init_pwm(uint gpio)
 {
     gpio_set_function(gpio, GPIO_FUNC_PWM);
-
     uint slice_num = pwm_gpio_to_slice_num(gpio);
-    pwm_set_wrap(slice_num, 255);
+    pwm_set_wrap(slice_num, 5);
     pwm_set_enabled(slice_num, true);
 }
 

@@ -18,8 +18,9 @@ typedef struct pio_refs
 
 refs init_pio();
 uint32_t rgb_matrix(led_color color);
-void loop_colors_one_by_one(refs pio, led_color color);
+void loop_led_colors(refs pio, led_color color);
 void convert_to_snake_rows(int *input, int *output);
 int* drawing(uint16_t pattern_Id);
+uint8_t choose_random_position();
 
 #endif
