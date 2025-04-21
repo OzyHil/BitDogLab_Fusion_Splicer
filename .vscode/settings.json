@@ -35,21 +35,5 @@
     "raspberry-pi-pico.cmakeAutoConfigure": true,
     "raspberry-pi-pico.useCmakeTools": false,
     "raspberry-pi-pico.cmakePath": "${HOME}/.pico-sdk/cmake/v3.31.5/bin/cmake",
-    "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
-    "files.associations": {
-        "stdio.h": "c",
-        "leds.h": "c",
-        "pio_matrix.pio.h": "c",
-        "led_matrix.h": "c",
-        "pio.h": "c",
-        "buttons.h": "c",
-        "variant": "c",
-        "drawings.h": "c",
-        "cstdint": "c",
-        "joystick.h": "c",
-        "general.h": "c",
-        "i2c.h": "c",
-        "display.h": "c",
-        "buzzer.h": "c"
-    }
+    "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja"
 }

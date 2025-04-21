@@ -55,10 +55,10 @@ int main()
             loop_led_colors(scheme_2);
         }
 
-        uint16_t x_position = roundf(NUM_LEDS_X * (float)(pos.x - LOWEST_AXIS_VALUE) / range);
-        uint16_t y_position = roundf(NUM_LEDS_Y * (float)(pos.y - LOWEST_AXIS_VALUE) / range);
+        uint16_t x_position = (NUM_LEDS_X * (int)(pos.x - LOWEST_AXIS_VALUE) / range);
+        uint16_t y_position = (NUM_LEDS_Y * (int)(pos.y - LOWEST_AXIS_VALUE) / range);
 
-        if (pos.x < 20) pos.x = LOWEST_AXIS_VALUE;
+        printf("%d; %d\n\n", x_position, y_position);
         update_display(x_position, y_position);
     }
 }
