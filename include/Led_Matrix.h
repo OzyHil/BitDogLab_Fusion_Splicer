@@ -9,6 +9,9 @@
 #define LED_MATRIX 7
 
 extern int matrix[NUM_PIXELS];
+extern volatile led_positions pos_fiber_1;
+extern volatile led_positions pos_fiber_2;
+extern volatile uint8_t chosen_pos;
 typedef struct pio_refs
 {
     PIO ref;
@@ -21,6 +24,7 @@ uint32_t rgb_matrix(led_color color);
 void loop_led_colors(refs pio, led_color_scheme colors);
 void convert_to_snake_rows(int *input, int *output);
 int* drawing(uint16_t pattern_Id);
-uint8_t choose_random_position();
+void choose_random_position();
+bool are_aligned();
 
 #endif

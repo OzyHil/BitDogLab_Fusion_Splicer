@@ -3,6 +3,7 @@
 #include "Leds.h"
 #include "Joystick.h"
 #include "Display.h"
+#include "Buzzer.h"
 
 void init_system_config()
 {
@@ -15,6 +16,7 @@ void init_system_config()
     configure_leds();
     configure_joystick();
     configure_i2c_display();
+    configure_buzzer();
 }
 
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up)
@@ -28,12 +30,13 @@ void configure_gpio(uint gpio, bool is_input, bool use_pull_up)
     }
 }
 
-void init_pwm(uint gpio)
+void init_pwm(uint gpio, uint wrap)
 {
     gpio_set_function(gpio, GPIO_FUNC_PWM);
-    uint slice_num = pwm_gpio_to_slice_num(gpio);
-    pwm_set_wrap(slice_num, 5);
-    pwm_set_enabled(slice_num, true);
+    uint slice = pwm_gpio_to_slice_num(gpio);
+    pwm_set_clkdiv(slice, 16.0);
+    pwm_set_wrap(slice, wrap);
+    pwm_set_enabled(slice, true);
 }
 
 void init_adc(uint gpio)

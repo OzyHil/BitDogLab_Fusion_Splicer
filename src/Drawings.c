@@ -42,6 +42,8 @@ int matrix[NUM_PIXELS] = {
     (x < 1700; y > 0) => 24;
 */
 
+// x = (0,1; 5,6; 10,11, 15,16; 20,21)
+// c = (2; 7; 12; 17; 22)
 // y = (3,4; 8,9; 14,15, 18,19; 23,24)
 
 led_positions update_fiber_1(int *matrix, int vrx, int vry)

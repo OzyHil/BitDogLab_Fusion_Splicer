@@ -1,7 +1,7 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
-#include "Leds.h"
+#include "Led_Matrix.h"
 
 #define BUTTON_A 5   
 #define BUTTON_B 6

@@ -1,4 +1,5 @@
 #include "Leds.h"
+#include "Buzzer.h"
 
 const led_color GREEN = {.red = 0, .green = 3, .blue = 0};
 const led_color YELLOW = {.red = 3, .green = 3, .blue = 0};
@@ -14,7 +15,7 @@ void configure_leds()
 
     for (int i = 0; i < 3; i++)
     {
-        init_pwm(leds[i]);
+        init_pwm(leds[i], WRAP_PWM_LED);
     }
 }
 
@@ -31,45 +32,58 @@ void set_led_color(led_color color)
     set_led_brightness(BLUE_LED, color.blue);
 }
 
-void check_and_light_led(led_positions fiber_pos, uint8_t chosen_pos, uint8_t fiber)
+int get_reference_position(led_positions fiber_pos, uint8_t fiber)
 {
-    int ref = -1;
-
     if (fiber == 1)
     {
         if (fiber_pos.pos_1 >= 0 && fiber_pos.pos_2 >= 0)
-            ref = (fiber_pos.pos_1 > fiber_pos.pos_2) ? fiber_pos.pos_1 : fiber_pos.pos_2;
+            return (fiber_pos.pos_1 > fiber_pos.pos_2) ? fiber_pos.pos_1 : fiber_pos.pos_2;
         else if (fiber_pos.pos_1 >= 0)
-            ref = fiber_pos.pos_1;
+            return fiber_pos.pos_1;
         else if (fiber_pos.pos_2 >= 0)
-            ref = fiber_pos.pos_2;
+            return fiber_pos.pos_2;
     }
     else if (fiber == 2)
     {
         if (fiber_pos.pos_1 >= 0 && fiber_pos.pos_2 >= 0)
-            ref = (fiber_pos.pos_1 < fiber_pos.pos_2) ? fiber_pos.pos_1 : fiber_pos.pos_2;
+            return (fiber_pos.pos_1 < fiber_pos.pos_2) ? fiber_pos.pos_1 : fiber_pos.pos_2;
         else if (fiber_pos.pos_1 >= 0)
-            ref = fiber_pos.pos_1;
+            return fiber_pos.pos_1;
         else if (fiber_pos.pos_2 >= 0)
-            ref = fiber_pos.pos_2;
+            return fiber_pos.pos_2;
     }
 
-    if (ref < 0)
+    return -1;
+}
+
+uint8_t get_diff_from_reference(int ref, uint8_t chosen_pos, uint8_t fiber)
+{
+    if (ref < 0) return 0xFF;
+    return (fiber == 1) ? (chosen_pos - ref) : (ref - chosen_pos);
+}
+
+void apply_led_and_buzzer_feedback(int ref, uint8_t diff)
+{
+    if (ref < 0 || diff == 0xFF)
     {
         set_led_color(DARK);
+        set_buzzer_level(BUZZER_A, 0);
         return;
     }
 
-    uint8_t diff;
-    if (fiber == 1)
-        diff = chosen_pos - ref;
-    else
-        diff = ref - chosen_pos;
-
     if (diff == 1)
+    {
         set_led_color(GREEN);
+        set_buzzer_level(BUZZER_A, WRAP_PWM_BUZZER / 5);
+    }
     else if (diff == 2)
+    {
         set_led_color(YELLOW);
+        set_buzzer_level(BUZZER_A, WRAP_PWM_BUZZER / 50);
+    }
     else
+    {
         set_led_color(ORANGE);
+        set_buzzer_level(BUZZER_A, WRAP_PWM_BUZZER / 100);
+    }
 }

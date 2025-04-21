@@ -1,12 +1,10 @@
 #include <Led_Matrix.h>
 
-int matrix[NUM_PIXELS] = {
-    0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0,
-    0, 0, 3, 0, 0,
-    0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0,
-};
+int matrix[NUM_PIXELS] = {0};
+
+volatile led_positions pos_fiber_1;
+volatile led_positions pos_fiber_2;
+volatile uint8_t chosen_pos;
 
 refs init_pio()
 {
@@ -72,19 +70,23 @@ void convert_to_snake_rows(int *input, int *output)
     }
 }
 
-uint8_t choose_random_position()
+void choose_random_position()
 {
     for (int i = 0; i < NUM_PIXELS; i++)
-    {         
+    {
         matrix[i] = 0;
     }
 
     int positions[] = {2, 7, 12, 17, 22};
-    
+
     int index = rand() % 5;
-    int chosen_pos = positions[index];
+    chosen_pos = positions[index];
 
     matrix[chosen_pos] = 3;
+}
 
-    return chosen_pos;
+bool are_aligned()
+{
+    return ((chosen_pos - 1 == pos_fiber_1.pos_2) && (chosen_pos - 2 == pos_fiber_1.pos_1)) &&
+           ((chosen_pos + 1 == pos_fiber_2.pos_1) && (chosen_pos + 2 == pos_fiber_2.pos_2));
 }

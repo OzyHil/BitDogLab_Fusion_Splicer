@@ -15,7 +15,7 @@
 
 void init_system_config();
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up);
-void init_pwm(uint gpio);
+void init_pwm(uint gpio, uint wrap);
 void init_adc(uint gpio);
 
 #endif

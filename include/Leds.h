@@ -6,6 +6,7 @@
 #define GREEN_LED 11 
 #define BLUE_LED 12  
 #define RED_LED 13  
+#define WRAP_PWM_LED 5  
 
 typedef struct {
     uint8_t red;
@@ -36,6 +37,7 @@ extern const led_color DARK;
 void configure_leds();
 void set_led_brightness(uint gpio, uint8_t level);
 void set_led_color(led_color color);
-void check_and_light_led(led_positions fiber_pos, uint8_t chosen_pos, uint8_t fiber);
-
+int get_reference_position(led_positions fiber_pos, uint8_t fiber);
+uint8_t get_diff_from_reference(int ref, uint8_t chosen_pos, uint8_t fiber);
+void apply_led_and_buzzer_feedback(int ref, uint8_t diff);
 #endif

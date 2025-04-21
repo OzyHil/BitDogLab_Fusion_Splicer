@@ -30,6 +30,15 @@ void button_irq_callback(uint gpio, uint32_t events)
             return;
         last_time_irq_J = current_time;
         selected_fiber = 0;
+
+        if (are_aligned())
+        {
+            printf("The fibers are aligned\n");
+            /* perform animation*/
+            choose_random_position();
+        }
+        else
+            printf("The fibers are not aligned\n");
     }
 }
 
