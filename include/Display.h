@@ -10,7 +10,7 @@
 #define DISPLAY_ADDRESS 0x3C     
 #define LOWEST_AXIS_VALUE 16     
 #define HIGHEST_AXIS_VALUE 4082  
-#define NUM_LEDS_X 119  
+#define NUM_LEDS_X 116  
 #define NUM_LEDS_Y 55  
 
 void configure_i2c_display();

@@ -9,5 +9,6 @@
 
 led_positions update_fiber_1(int *matrix, int vrx, int vry);
 led_positions update_fiber_2(int *matrix, int vrx, int vry);
+void update_fibers_and_center_led(int *matrix, int vrx, int vry);
 
 #endif

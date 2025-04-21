@@ -33,6 +33,10 @@ extern const led_color CHARTREUSE;
 extern const led_color CYAN;
 extern const led_color BURGUNDY;
 extern const led_color DARK;
+extern const led_color BLUE;
+extern const led_color PURPLE;
+extern const led_color RED;
+extern const led_color WHITE;
 
 void configure_leds();
 void set_led_brightness(uint gpio, uint8_t level);
@@ -40,4 +44,5 @@ void set_led_color(led_color color);
 int get_reference_position(led_positions fiber_pos, uint8_t fiber);
 uint8_t get_diff_from_reference(int ref, uint8_t chosen_pos, uint8_t fiber);
 void apply_led_and_buzzer_feedback(int ref, uint8_t diff);
+
 #endif

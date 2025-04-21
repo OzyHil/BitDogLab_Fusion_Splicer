@@ -8,6 +8,11 @@ const led_color CHARTREUSE = {.red = 3, .green = 15, .blue = 0};
 const led_color CYAN = {.red = 0, .green = 3, .blue = 3};
 const led_color BURGUNDY = {.red = 3, .green = 0, .blue = 1};
 const led_color DARK = {.red = 0, .green = 0, .blue = 0};
+const led_color BLUE = {.red = 0, .green = 0, .blue = 3};    
+const led_color PURPLE = {.red = 2, .green = 0, .blue = 3};  
+const led_color RED = {.red = 3, .green = 0, .blue = 0};     
+const led_color WHITE = {.red = 2, .green = 2, .blue = 2}; 
+const led_color GRAY = {.red = 1, .green = 1, .blue = 1};   
 
 void configure_leds()
 {

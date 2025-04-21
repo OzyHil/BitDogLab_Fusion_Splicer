@@ -86,7 +86,7 @@ led_positions update_fiber_1(int *matrix, int vrx, int vry)
         {
             matrix[base] = 1;
             positions.pos_1 = base;
-            positions.pos_2 = -1;  
+            positions.pos_2 = -1;
         }
         else
         {
@@ -137,7 +137,7 @@ led_positions update_fiber_2(int *matrix, int vrx, int vry)
         {
             matrix[base + 4] = 2;
             positions.pos_1 = base + 4;
-            positions.pos_2 = -1;  
+            positions.pos_2 = -1;
         }
         else
         {
@@ -146,4 +146,38 @@ led_positions update_fiber_2(int *matrix, int vrx, int vry)
         }
     }
     return positions;
+}
+
+void update_fibers_and_center_led(int *matrix, int vrx, int vry)
+{
+    for (int i = 0; i < NUM_PIXELS; i++)
+    {
+        if (matrix[i] == 1 || matrix[i] == 2 || matrix[i] == 3)
+            matrix[i] = 0;
+    }
+
+    int linha = -1;
+    if (vry > 3300)
+        linha = 0;
+    else if (vry > 2500)
+        linha = 1;
+    else if (vry > 1700)
+        linha = 2;
+    else if (vry > 900)
+        linha = 3;
+    else if (vry >= 0)
+        linha = 4;
+
+    if (linha >= 0 && linha < 5)
+    {
+        int base = linha * 5;
+
+        matrix[base + 0] = 1;
+        matrix[base + 1] = 1;
+
+        matrix[base + 2] = 3;
+
+        matrix[base + 3] = 2;
+        matrix[base + 4] = 2;
+    }
 }

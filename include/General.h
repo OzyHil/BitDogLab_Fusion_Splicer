@@ -12,6 +12,7 @@
 #include "hardware/clocks.h"
 #include "hardware/i2c.h"
 #include "math.h"
+#include <stdbool.h>
 
 void init_system_config();
 void configure_gpio(uint gpio, bool is_input, bool use_pull_up);
