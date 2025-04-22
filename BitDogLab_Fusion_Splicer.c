@@ -42,7 +42,7 @@ int main()
             pos_fiber_1 = update_fiber_1(matrix, pos.x, pos.y); // Atualiza a posição da fibra 1 na matriz e calcula a referência
             ref = get_reference_position(pos_fiber_1, 1); // Obtém a posição de referência para a fibra 1
             diff = get_diff_from_reference(ref, chosen_pos, 1); // Calcula a diferença entre a posição de alinhamento e a referência
-            apply_led_and_buzzer_feedback(ref, diff); // Aplica feedback visual e sonoro
+            apply_led_and_buzzer_feedback(ref, diff, 0); // Aplica feedback visual e sonoro
             loop_led_colors(scheme_1); // Executa a animação dos LEDs com o esquema de cores 1
         }
 
@@ -53,29 +53,30 @@ int main()
             pos_fiber_2 = update_fiber_2(matrix, pos.x, pos.y);
             ref = get_reference_position(pos_fiber_2, 2);
             diff = get_diff_from_reference(ref, chosen_pos, 2);
-            apply_led_and_buzzer_feedback(ref, diff);
+            apply_led_and_buzzer_feedback(ref, diff, 0);
             loop_led_colors(scheme_1);
         }
 
         // Caso nenhuma fibra esteja selecionada, o feedback visual e sonoro é desativado
         else if (selected_fiber == 0)
         {
-            apply_led_and_buzzer_feedback(-1, -1);
+            apply_led_and_buzzer_feedback(-1, -1, -1);
         }
 
         // Caso a fusão de fibras deva ser animada, ela é realizada
         else if (should_animate_fusion)
         {
             should_animate_fusion = false; // Desativa a animação de fusão após ser executada
-            apply_led_and_buzzer_feedback(-1, -1);
+            apply_led_and_buzzer_feedback(-1, -1, -1);
             animate_fiber_fusion(); // Função que realiza a animação da fusão das fibras
+            printf("=== Emenda realizada com sucesso.\n");
         }
 
         // Caso as fibras unidas estejam se movendo, o movimento é atualizado
         else if (move_joined_fiber)
         {
             update_fibers_and_center_led(matrix, pos.x, pos.y); // Atualiza as fibras unidas e o LED central
-            apply_led_and_buzzer_feedback(-1, -1);
+            apply_led_and_buzzer_feedback(-1, -1, -1);
             loop_led_colors(scheme_2); // Executa a animação dos LEDs com o esquema de cores 2
         }
 

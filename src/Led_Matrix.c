@@ -177,9 +177,9 @@ void animate_fiber_fusion()
         loop_led_colors(fusion_colors[i]);
 
         // Feedback: LED verde + buzzer (rápido)
-        apply_led_and_buzzer_feedback(i, 1);
+        apply_led_and_buzzer_feedback(i, 1, 1);
         sleep_ms(60);
-        apply_led_and_buzzer_feedback(-1, -1);
+        apply_led_and_buzzer_feedback(-1, -1, 1);
 
         sleep_ms(140); // Totaliza 200ms por frame
     }
@@ -200,5 +200,5 @@ void animate_fiber_fusion()
     loop_led_colors(scheme_2); // Aplica esquema final
 
     // Garante que o LED e o buzzer estejam desligados
-    apply_led_and_buzzer_feedback(-1, -1);
+    apply_led_and_buzzer_feedback(-1, -1, -1);
 }

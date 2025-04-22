@@ -59,6 +59,6 @@ int get_reference_position(led_positions fiber_pos, uint8_t fiber);
 uint8_t get_diff_from_reference(int ref, uint8_t chosen_pos, uint8_t fiber);
 
 // Aplica feedback com LED e buzzer conforme alinhamento
-void apply_led_and_buzzer_feedback(int ref, uint8_t diff);
+void apply_led_and_buzzer_feedback(int ref, uint8_t diff, uint8_t status);
 
 #endif
