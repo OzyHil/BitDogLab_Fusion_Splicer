@@ -1,23 +1,41 @@
-#include "Display.h"
+#include "Display.h"  // Inclusão do cabeçalho com definições relacionadas ao display OLED
 
-ssd1306_t ssd;
+ssd1306_t ssd;  // Estrutura que representa o display OLED SSD1306
 
+// Função para configurar a comunicação I2C e inicializar o display OLED
 void configure_i2c_display()
 {
+    // Inicializa o barramento I2C na porta e com frequência de 400 kHz
     i2c_init(I2C_PORT, 400 * 1000);
+
+    // Define as funções dos pinos SDA e SCL como I2C
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
     gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
+
+    // Ativa resistores de pull-up nos pinos SDA e SCL
     gpio_pull_up(I2C_SDA);
     gpio_pull_up(I2C_SCL);
+
+    // Inicializa o display com resolução 128x64, sem rotação, endereço I2C e porta definida
     ssd1306_init(&ssd, 128, 64, false, DISPLAY_ADDRESS, I2C_PORT);
+
+    // Configura o display com parâmetros padrão
     ssd1306_config(&ssd);
+
+    // Envia os dados iniciais para o display
     ssd1306_send_data(&ssd);
 }
 
+// Função para atualizar o display com a posição atual
 void update_display(uint16_t x_position, uint16_t y_position)
 {
+    // Limpa completamente a tela do display (preenche com cor preta)
     ssd1306_fill(&ssd, false);
+
+    // Desenha um retângulo 8x8 na posição determinada
+    // O Y é invertido porque os LEDs estão organizados de baixo pra cima (NUM_LEDS_Y - y)
     ssd1306_rect(&ssd, abs(NUM_LEDS_Y - y_position), x_position, 8, 8, true, true);
-    // ssd1306_rect(&ssd, y_position, x_position, 8, 8, true, true);
+
+    // Envia o novo conteúdo (com o retângulo desenhado) para o display
     ssd1306_send_data(&ssd);
 }
